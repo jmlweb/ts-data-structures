@@ -1,0 +1,38 @@
+{
+  "name": "ts-data-structures",
+  "description": "Common data structures implemented in TypeScript",
+  "version": "1.0.0",
+  "author": "José Manuel Lucas <josemanuel@jmlweb.es>",
+  "main": "build/index.js",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "algorithms",
+    "data-structures"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmlweb/ts-data-structures"
+  },
+  "scripts": {
+    "prebuild": "rimraf build",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watchAll",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.6"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-immutable": "^6.0.1",
+    "typescript": "^3.7.4"
+  }
+}
