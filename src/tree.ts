@@ -1,4 +1,6 @@
-class TreeNode<T extends string> {
+import { VALID_KEY } from './typings';
+
+class TreeNode<T extends VALID_KEY> {
   public static create(key: any): TreeNode<any> {
     return new TreeNode(key);
   }
@@ -17,8 +19,8 @@ class TreeNode<T extends string> {
   }
 }
 
-class Tree<T extends string> {
-  public static create(key: string): Tree<string> {
+class Tree<T extends VALID_KEY> {
+  public static create(key: any): Tree<any> {
     return new Tree(key);
   }
 

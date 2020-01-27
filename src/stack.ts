@@ -1,7 +1,8 @@
 import init from './_lib/init';
 import last from './_lib/last';
+import { VALID_KEY } from './typings';
 
-class Stack<T> {
+class Stack<T extends VALID_KEY> {
   public static create(): Stack<any> {
     return new Stack();
   }

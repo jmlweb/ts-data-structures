@@ -1,6 +1,7 @@
 import Queue from './queue';
+import { VALID_KEY } from './typings';
 
-class PriorityQueue<T> {
+class PriorityQueue<T extends VALID_KEY> {
   public static create(): PriorityQueue<any> {
     return new PriorityQueue();
   }

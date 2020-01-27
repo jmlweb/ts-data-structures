@@ -1,7 +1,8 @@
 import head from './_lib/head';
 import tail from './_lib/tail';
+import { VALID_KEY } from './typings';
 
-class Queue<T> {
+class Queue<T extends VALID_KEY> {
   public static create(): Queue<any> {
     return new Queue();
   }

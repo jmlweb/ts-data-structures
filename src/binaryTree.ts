@@ -1,20 +1,22 @@
-class BinaryNode {
-  public static create(key: string): BinaryNode {
+import { VALID_KEY } from './typings';
+
+class BinaryNode<T extends VALID_KEY> {
+  public static create(key: any): BinaryNode<any> {
     return new BinaryNode(key);
   }
-  public key: string;
-  public left?: BinaryNode;
-  public right?: BinaryNode;
-  constructor(key: string) {
+  public key: T;
+  public left?: BinaryNode<T>;
+  public right?: BinaryNode<T>;
+  constructor(key: T) {
     this.key = key;
   }
 
-  public addLeft(leftKey: string): BinaryNode {
+  public addLeft(leftKey: string): BinaryNode<T> {
     this.left = BinaryNode.create(leftKey);
     return this.left;
   }
 
-  public addRight(rightKey: string): BinaryNode {
+  public addRight(rightKey: string): BinaryNode<T> {
     this.right = BinaryNode.create(rightKey);
     return this.right;
   }
@@ -22,8 +24,8 @@ class BinaryNode {
 
 const TRAVERSALS = {
   IN_ORDER: (
-    node: BinaryNode | undefined,
-    visitFn: (x: BinaryNode) => void
+    node: BinaryNode<any> | undefined,
+    visitFn: (x: BinaryNode<any>) => void
   ) => {
     if (node !== undefined) {
       TRAVERSALS.IN_ORDER(node.left, visitFn);
@@ -32,8 +34,8 @@ const TRAVERSALS = {
     }
   },
   PRE_ORDER: (
-    node: BinaryNode | undefined,
-    visitFn: (x: BinaryNode) => void
+    node: BinaryNode<any> | undefined,
+    visitFn: (x: BinaryNode<any>) => void
   ) => {
     if (node !== undefined) {
       visitFn(node);
@@ -42,8 +44,8 @@ const TRAVERSALS = {
     }
   },
   POST_ORDER: (
-    node: BinaryNode | undefined,
-    visitFn: (x: BinaryNode) => void
+    node: BinaryNode<any> | undefined,
+    visitFn: (x: BinaryNode<any>) => void
   ) => {
     if (node !== undefined) {
       TRAVERSALS.POST_ORDER(node.left, visitFn);
@@ -53,24 +55,23 @@ const TRAVERSALS = {
   }
 };
 
-// type TRAVERSAL_TYPE = 'IN_ORDER' | 'PRE_ORDER' | 'POST_ORDER';
 type TRAVERSAL_TYPE = keyof typeof TRAVERSALS;
 
-class BinaryTree {
-  public static create(key: string): BinaryTree {
+class BinaryTree<T extends VALID_KEY> {
+  public static create(key: any): BinaryTree<any> {
     return new BinaryTree(key);
   }
 
-  public root: BinaryNode;
+  public root: BinaryNode<T>;
 
-  constructor(key: string) {
+  constructor(key: T) {
     this.root = BinaryNode.create(key);
   }
 
   public print(traversalType: TRAVERSAL_TYPE = 'IN_ORDER'): string {
     let result = '';
 
-    const visit = (node: BinaryNode): void => {
+    const visit = (node: BinaryNode<T>): void => {
       result += result.length === 0 ? node.key : ` => ${node.key}`;
     };
 

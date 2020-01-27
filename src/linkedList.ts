@@ -1,4 +1,6 @@
-class Node<T> {
+import { VALID_KEY } from './typings';
+
+class Node<T extends VALID_KEY> {
   public static create(value: any): Node<any> {
     return new Node(value);
   }
@@ -11,7 +13,7 @@ class Node<T> {
   }
 }
 
-class LinkedList<T> {
+class LinkedList<T extends VALID_KEY> {
   public static create(): LinkedList<any> {
     return new LinkedList();
   }

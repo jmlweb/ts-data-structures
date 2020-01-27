@@ -1,6 +1,7 @@
 import Queue from './queue';
+import { VALID_KEY } from './typings';
 
-class GraphNode<T extends string> {
+class GraphNode<T extends VALID_KEY> {
   public static create(key: any): GraphNode<any> {
     return new GraphNode(key);
   }
@@ -20,7 +21,7 @@ class GraphNode<T extends string> {
   }
 }
 
-class Graph<T extends string> {
+class Graph<T extends VALID_KEY> {
   public static create(directed?: boolean): Graph<any> {
     return new Graph(directed);
   }
