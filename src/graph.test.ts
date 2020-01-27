@@ -19,7 +19,7 @@ describe('Directed Graph', () => {
     expect(directedGraph.getNode('foo')).toBeUndefined();
   });
 
-  it('is possible to add edges', () => {
+  it('is possible to add edges and adding edges outside of nodes doesnt produce any side effect', () => {
     directedGraph.addEdge('Kyle', 'Anna');
     directedGraph.addEdge('Anna', 'Kyle');
     directedGraph.addEdge('Kyle', 'Krios');
@@ -28,6 +28,7 @@ describe('Directed Graph', () => {
     directedGraph.addEdge('Anna', 'Tali');
     directedGraph.addEdge('Krios', 'Anna');
     directedGraph.addEdge('Tali', 'Kyle');
+    directedGraph.addEdge('foo', 'bar');
     expect(directedGraph.print()).toBe(
       'Kyle => Anna Krios Tali\nAnna => Kyle Krios Tali\nKrios => Anna\nTali => Kyle'
     );
@@ -65,5 +66,85 @@ describe('Undirected Graph', () => {
     expect(undirectedGraph.print()).toBe(
       'Kyle => Anna Krios Tali\nAnna => Kyle Krios Tali\nKrios => Kyle Anna\nTali => Kyle Anna'
     );
+  });
+});
+
+describe('Search', () => {
+  it('breadthFirstSearch', () => {
+    let result: ReadonlyArray<string> = [];
+    const graph = Graph.create(true);
+    const nodes = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const edges: ReadonlyArray<[string, string]> = [
+      ['a', 'b'],
+      ['a', 'e'],
+      ['a', 'f'],
+      ['b', 'd'],
+      ['b', 'e'],
+      ['c', 'b'],
+      ['d', 'c'],
+      ['d', 'e']
+    ];
+    nodes.forEach(node => {
+      graph.addNode(node);
+    });
+    edges.forEach(edge => {
+      graph.addEdge(...edge);
+    });
+    graph.breadthFirstSearch('a', node => {
+      result = [...result, node.key];
+    });
+    expect(result.join(', ')).toBe('a, b, e, f, d, c');
+  });
+
+  it('dephthFirstSearch', () => {
+    let result: ReadonlyArray<string> = [];
+    const graph = Graph.create(true);
+    const nodes = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const edges: ReadonlyArray<[string, string]> = [
+      ['a', 'b'],
+      ['a', 'e'],
+      ['a', 'f'],
+      ['b', 'd'],
+      ['b', 'e'],
+      ['c', 'b'],
+      ['d', 'c'],
+      ['d', 'e']
+    ];
+    nodes.forEach(node => {
+      graph.addNode(node);
+    });
+    edges.forEach(edge => {
+      graph.addEdge(...edge);
+    });
+    graph.depthFirstSearch('a', node => {
+      result = [...result, node.key];
+    });
+    expect(result.join(', ')).toBe('a, b, d, c, e, f');
+  });
+
+  it('dephthFirstSearch with key outside of nodes', () => {
+    let result: ReadonlyArray<string> = [];
+    const graph = Graph.create(true);
+    const nodes = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const edges: ReadonlyArray<[string, string]> = [
+      ['a', 'b'],
+      ['a', 'e'],
+      ['a', 'f'],
+      ['b', 'd'],
+      ['b', 'e'],
+      ['c', 'b'],
+      ['d', 'c'],
+      ['d', 'e']
+    ];
+    nodes.forEach(node => {
+      graph.addNode(node);
+    });
+    edges.forEach(edge => {
+      graph.addEdge(...edge);
+    });
+    graph.depthFirstSearch('x', node => {
+      result = [...result, node.key];
+    });
+    expect(result.join(', ')).toBe('');
   });
 });

@@ -11,12 +11,12 @@ describe('Queue', () => {
   });
 
   it('queue is empty at first', () => {
-    expect(queue.isEmpty()).toBe(true);
+    expect(queue.isEmpty).toBe(true);
   });
 
   it('queue is not empty after adding one item', () => {
     queue.add(firstValue);
-    expect(queue.isEmpty()).toBe(false);
+    expect(queue.isEmpty).toBe(false);
   });
 
   it('queue length should be 3 after adding another 2 items', () => {
@@ -27,11 +27,11 @@ describe('Queue', () => {
 
   it('queue should peek at second item when dequeueing', () => {
     queue.remove();
-    expect(queue.peek()).toBe(secondValue);
+    expect(queue.peek).toBe(secondValue);
   });
   it('queue should peek at third item when dequeueing', () => {
     queue.remove();
-    expect(queue.peek()).toBe(thirdValue);
+    expect(queue.peek).toBe(thirdValue);
   });
 
   it('queue should not fail when dequeueing over an empty queue', () => {
@@ -42,7 +42,8 @@ describe('Queue', () => {
 
   it('peek should not fail over an empty queue', () => {
     expect(() => {
-      queue.peek();
+      /* tslint:disable-next-line no-unused-expression*/
+      queue.peek;
     }).not.toThrow();
   });
 });

@@ -1,4 +1,6 @@
-class GraphNode<T> {
+import Queue from './queue';
+
+class GraphNode<T extends string> {
   public static create(key: any): GraphNode<any> {
     return new GraphNode(key);
   }
@@ -18,7 +20,7 @@ class GraphNode<T> {
   }
 }
 
-class Graph<T> {
+class Graph<T extends string> {
   public static create(directed?: boolean): Graph<any> {
     return new Graph(directed);
   }
@@ -51,6 +53,73 @@ class Graph<T> {
       if (!this.directed) {
         node2.addNeighbor(node1);
       }
+    }
+  }
+
+  public breadthFirstSearch(
+    startingKey: T,
+    visitFn: (x: GraphNode<T>) => void
+  ): void {
+    const startingNode = this.getNode(startingKey);
+    let visited: {
+      [x: string]: boolean;
+    } = this.nodes.reduce(
+      (acc, node: GraphNode<T>) => ({
+        ...acc,
+        [node.key]: false
+      }),
+      {}
+    );
+    const queue = Queue.create();
+    queue.add(startingNode);
+
+    while (!queue.isEmpty) {
+      const currentNode = queue.remove();
+
+      if (!visited[currentNode.key]) {
+        visitFn(currentNode);
+        visited = {
+          ...visited,
+          [currentNode.key]: true
+        };
+      }
+
+      currentNode.neighbors.forEach((node: GraphNode<T>) => {
+        if (!visited[node.key]) {
+          queue.add(node);
+        }
+      });
+    }
+  }
+
+  public depthFirstSearch(
+    startingKey: T,
+    visitFn: (x: GraphNode<T>) => void
+  ): void {
+    let visited: {
+      [x: string]: boolean;
+    } = this.nodes.reduce(
+      (acc, node: GraphNode<T>) => ({
+        ...acc,
+        [node.key]: false
+      }),
+      {}
+    );
+
+    function explore(node: GraphNode<T>): void {
+      if (!visited[node.key]) {
+        visitFn(node);
+        visited = {
+          ...visited,
+          [node.key]: true
+        };
+        node.neighbors.forEach(explore);
+      }
+    }
+
+    const startingNode = this.getNode(startingKey);
+    if (startingNode) {
+      explore(startingNode);
     }
   }
 

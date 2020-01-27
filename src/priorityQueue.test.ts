@@ -11,7 +11,7 @@ describe('Queue', () => {
   });
 
   it('queue is empty at first', () => {
-    expect(priorityQueue.isEmpty()).toBe(true);
+    expect(priorityQueue.isEmpty).toBe(true);
   });
 
   it('queue length should be 3 after adding 2 normal items and 1 priority item', () => {
@@ -22,17 +22,17 @@ describe('Queue', () => {
   });
 
   it('queue should peek at emergencyItem', () => {
-    expect(priorityQueue.peek()).toBe(emergencyOne);
+    expect(priorityQueue.peek).toBe(emergencyOne);
   });
 
   it('queue should peek at normal item after dequeueing', () => {
     priorityQueue.remove();
-    expect(priorityQueue.peek()).toBe(firstValue);
+    expect(priorityQueue.peek).toBe(firstValue);
   });
 
   it('queue should peek at second item when dequeueing', () => {
     priorityQueue.remove();
-    expect(priorityQueue.peek()).toBe(secondValue);
+    expect(priorityQueue.peek).toBe(secondValue);
     priorityQueue.remove();
   });
 
@@ -44,7 +44,8 @@ describe('Queue', () => {
 
   it('peek should not fail over an empty queue', () => {
     expect(() => {
-      priorityQueue.peek();
+      /* tslint:disable-next-line no-unused-expression*/
+      priorityQueue.peek;
     }).not.toThrow();
   });
 });

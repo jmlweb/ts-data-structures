@@ -8,23 +8,26 @@ class Queue<T> {
 
   private queue: ReadonlyArray<T> = [];
 
-  public add(item: T): void {
+  public add(item: T): T {
     this.queue = [...this.queue, item];
+    return item;
   }
 
-  public remove(): void {
+  public remove(): T {
+    const removed = this.peek;
     this.queue = tail(this.queue);
+    return removed;
   }
 
   public get length(): number {
     return this.queue.length;
   }
 
-  public isEmpty(): boolean {
+  public get isEmpty(): boolean {
     return this.length === 0;
   }
 
-  public peek(): T {
+  public get peek(): T {
     return head(this.queue);
   }
 }

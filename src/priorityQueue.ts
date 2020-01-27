@@ -8,35 +8,31 @@ class PriorityQueue<T> {
   private lowPriorityQueue: Queue<T> = Queue.create();
   private highPriorityQueue: Queue<T> = Queue.create();
 
-  public add(item: T, isHighPriority?: boolean): void {
-    if (isHighPriority) {
-      this.highPriorityQueue.add(item);
-    } else {
-      this.lowPriorityQueue.add(item);
-    }
+  public add(item: T, isHighPriority?: boolean): T {
+    return isHighPriority
+      ? this.highPriorityQueue.add(item)
+      : this.lowPriorityQueue.add(item);
   }
 
-  public remove(): void {
-    if (this.highPriorityQueue.length) {
-      this.highPriorityQueue.remove();
-    } else {
-      this.lowPriorityQueue.remove();
-    }
+  public remove(): T {
+    return this.highPriorityQueue.length
+      ? this.highPriorityQueue.remove()
+      : this.lowPriorityQueue.remove();
   }
 
   public get length(): number {
     return this.highPriorityQueue.length + this.lowPriorityQueue.length;
   }
 
-  public isEmpty(): boolean {
+  public get isEmpty(): boolean {
     return this.length === 0;
   }
 
-  public peek(): T {
+  public get peek(): T {
     if (this.highPriorityQueue.length) {
-      return this.highPriorityQueue.peek();
+      return this.highPriorityQueue.peek;
     }
-    return this.lowPriorityQueue.peek();
+    return this.lowPriorityQueue.peek;
   }
 }
 

@@ -8,7 +8,7 @@ describe('LinkedList', () => {
   const linkedList = LinkedList.create();
 
   it('list is empty at first', () => {
-    expect(linkedList.isEmpty()).toBe(true);
+    expect(linkedList.isEmpty).toBe(true);
   });
 
   it('is possible to add items', () => {
@@ -51,8 +51,8 @@ describe('LinkedList', () => {
     expect(linkedList.print()).toBe('Foo => Bar => Baz');
     linkedList.removeByIndex(1);
     expect(linkedList.print()).toBe('Foo => Baz');
-    linkedList.removeByIndex(0);
-    expect(linkedList.print()).toBe('Baz');
+    linkedList.removeByIndex(1);
+    expect(linkedList.print()).toBe('Foo');
     linkedList.removeByIndex(0);
     expect(linkedList.print()).toBe('');
     linkedList.removeByIndex(0);
