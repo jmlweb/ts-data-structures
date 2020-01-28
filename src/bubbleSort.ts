@@ -1,18 +1,17 @@
-function bubbleSort<T>(array: ReadonlyArray<T>): ReadonlyArray<T> {
-  const outputArray = [...array];
+function bubbleSort<T>([...array]: ReadonlyArray<T>): ReadonlyArray<T> {
   let swapped = false;
   do {
     swapped = false;
-    outputArray.forEach((item, index) => {
-      if (item > outputArray[index + 1]) {
+    array.forEach((item, index) => {
+      if (item > array[index + 1]) {
         const temporary = item;
-        outputArray[index] = outputArray[index + 1];
-        outputArray[index + 1] = temporary;
+        array[index] = array[index + 1];
+        array[index + 1] = temporary;
         swapped = true;
       }
     });
   } while (swapped);
-  return outputArray;
+  return array;
 }
 
 export default bubbleSort;
